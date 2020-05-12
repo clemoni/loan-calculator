@@ -98,7 +98,7 @@ function ageRepresentation(age) {
     srcImg = "img/student.svg";
   } else if (age > 30 && age <= 50) {
     //actif young
-    srcImg = "img/stick-man.svg";
+    srcImg = "img/education.svg";
   } else if (age > 50 && age <= 60) {
     //actif mature
     srcImg = "img/avatar.svg";
