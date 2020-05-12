@@ -35,17 +35,34 @@ function calculateResult(e) {
     totalAge.value = calculatedAge;
     ageRepresentation(calculatedAge);
   } else {
-    console.log("oh oh");
+    showError("you forger to complete the form");
   }
   //since form submit prevent default behaviour
   e.preventDefault();
 }
+function showError(errorMessage) {
+  const errorDiv = document.createElement("div");
+  //   get element
+  const card = document.querySelector(".card");
+  const heading = document.querySelector(".heading");
+  errorDiv.className = "alert alert-danger";
+  // create textNode and append ot div
+  errorDiv.appendChild(document.createTextNode(errorMessage));
+  //insert error before heading
+  card.insertBefore(errorDiv, heading);
+  //clear the form after a moment
+  setTimeout(clearError, 3000);
+}
+function clearError() {
+  document.querySelector(".alert").remove();
+}
 function ageRepresentation(age) {
   const ageRepresentationDiv = document.querySelector("#age-representation");
   if (document.querySelector("#age-icon")) {
-    ageRepresentationDiv.removeChild(document.querySelector("#age-icon"));
+    //anotehr way to remove it from the parent
+    // ageRepresentationDiv.removeChild(document.querySelector("#age-icon"));
+    document.querySelector("#age-icon").remove();
   }
-
   const img = document.createElement("img");
   img.className = "img-thumbnail";
   img.id = "age-icon";
