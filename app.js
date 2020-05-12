@@ -1,16 +1,25 @@
 //document.addEventListener("DOMContentLoaded", clearAge);
 
 // listen for submit
-document
-  .getElementById("loan-form")
-  .addEventListener("submit", calculateResult);
+// add fucntion isntead of previousy calculateResute since we want to add delay
+document.getElementById("loan-form").addEventListener("submit", function (e) {
+  // hide result
+  document.getElementById("results").style.display = "none";
+  document.getElementById("age-result").style.display = "none";
+  document.getElementById("loading").style.display = "block";
+
+  // call the function after 2second
+  setTimeout(calculateResult, 2000);
+  // show loader
+  e.preventDefault();
+});
 
 function clearAge() {
   const ageRepresentationDiv = document.getElementById("age-representation");
   ageRepresentationDiv.children[0].remove();
 }
 
-function calculateResult(e) {
+function calculateResult() {
   const age = document.querySelector("#age");
   const amount = document.querySelector("#amount");
   const interest = document.querySelector("#interest");
@@ -34,13 +43,27 @@ function calculateResult(e) {
     totalInterest.value = (monthly * calculatedPayment - principal).toFixed(2);
     totalAge.value = calculatedAge;
     ageRepresentation(calculatedAge);
+
+    //show results
+    document.getElementById("results").style.display = "block";
+    document.getElementById("age-result").style.display = "block";
+
+    // hode the loading
+    document.getElementById("loading").style.display = "none";
   } else {
     showError("you forger to complete the form");
   }
   //since form submit prevent default behaviour
-  e.preventDefault();
+  //   e.preventDefault();
 }
 function showError(errorMessage) {
+  //show results
+  document.getElementById("results").style.display = "none";
+  document.getElementById("age-result").style.display = "none";
+
+  // hode the loading
+  document.getElementById("loading").style.display = "none";
+
   const errorDiv = document.createElement("div");
   //   get element
   const card = document.querySelector(".card");
@@ -51,7 +74,7 @@ function showError(errorMessage) {
   //insert error before heading
   card.insertBefore(errorDiv, heading);
   //clear the form after a moment
-  setTimeout(clearError, 3000);
+  setTimeout(clearError, 2000);
 }
 function clearError() {
   document.querySelector(".alert").remove();
